@@ -47,10 +47,6 @@ class Vetor
 class Somador extends Thread
 {
 	private int id; //identificador da thread
-
-	Vetor vetA = somaVetor.A;
-	Vetor vetB = somaVetor.B;
-	Vetor vetC = somaVetor.C;
   
 	public Somador ( int tid )
 	{ 
@@ -60,9 +56,9 @@ class Somador extends Thread
 	public void run()
 	{
 		System.out.println( "Thread " + this.id + " iniciou." );
-		for( int i = id; i < vetA.getLength(); i += somaVetor.N_THREADS )
+		for( int i = id; i < somaVetor.TAM_VETOR; i += somaVetor.N_THREADS )
 		{
-			this.vetC.setElement( i, vetA.getElement( i ) + vetB.getElement( i ) );
+			somaVetor.C.setElement( i, somaVetor.A.getElement( i ) + somaVetor.B.getElement( i ) );
 		}
 		System.out.println( "Thread " + this.id + " terminou." ); 
 	}
@@ -90,6 +86,8 @@ class somaVetor
 		A.inicializaVetor();
 		B.inicializaVetor();
 		C.inicializaVetor();
+		
+		C.imprimeVetor();
 		
 		//cria as threads da aplicacao
 		for( int i = 0; i < threads.length; i++ )
