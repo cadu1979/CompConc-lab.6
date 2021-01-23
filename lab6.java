@@ -10,11 +10,11 @@ class Vetor
 		this.tam = tam;
 	}
 
-	//inicializa todo o vetor para 3
-	public void inicializaVetor()
+	//inicializa todo o vetor para 'valor'
+	public void inicializaVetor( int valor )
 	{
 		for( int i = 0; i < this.tam; i++ )
-			vet[ i ] = 3;
+			vet[ i ] = valor;
 	}
 
 	public void imprimeVetor()
@@ -25,6 +25,7 @@ class Vetor
 		System.out.println();
 	}
 
+	//retorna o tamanho do vetor
 	public int getLength()
 	{
 		return this.tam;
@@ -48,6 +49,7 @@ class Somador extends Thread
 {
 	private int id; //identificador da thread
   
+  	//construtor
 	public Somador ( int tid )
 	{ 
 		this.id = tid; 
@@ -58,6 +60,7 @@ class Somador extends Thread
 		System.out.println( "Thread " + this.id + " iniciou." );
 		for( int i = id; i < somaVetor.TAM_VETOR; i += somaVetor.N_THREADS )
 		{
+			//C[ i ] = A[ i ] + B[ i ]
 			somaVetor.C.setElement( i, somaVetor.A.getElement( i ) + somaVetor.B.getElement( i ) );
 		}
 		System.out.println( "Thread " + this.id + " terminou." ); 
@@ -83,11 +86,16 @@ class somaVetor
 		B = new Vetor( TAM_VETOR );
 		C = new Vetor( TAM_VETOR );
 		
-		A.inicializaVetor();
-		B.inicializaVetor();
-		C.inicializaVetor();
+		A.inicializaVetor( 3215 );
+		B.inicializaVetor( 2144 );
+		C.inicializaVetor( 0 );
 		
-		C.imprimeVetor();
+		//imprime os vetores A & B
+		System.out.println( "Vetores a ser somados:" );
+		System.out.println( "Vetor A:" );
+		A.imprimeVetor();
+		System.out.println( "Vetor B:" );
+		B.imprimeVetor();
 		
 		//cria as threads da aplicacao
 		for( int i = 0; i < threads.length; i++ )
@@ -108,6 +116,7 @@ class somaVetor
 			catch ( InterruptedException e ) { return; }
 		}
 
+		System.out.println( "Vetor resultado:" ); 
 		C.imprimeVetor();
 	}
 }
